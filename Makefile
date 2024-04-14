@@ -3,13 +3,14 @@ CC := clang
 CXX := clang++
 CFLAGS := -Wall -O3
 DBGFLAGS := -g
+LFLAGS :=
 
 BIN_PATH := bin
 OBJ_PATH := obj
 SRC_PATH := src
 DBG_PATH := debug
 
-TARGET_NAME := 
+TARGET_NAME :=
 TARGET := $(BIN_PATH)/$(TARGET_NAME)
 TARGET_DBG := $(DBG_PATH)/$(TARGET_NAME)
 
@@ -21,7 +22,7 @@ OBJ_DBG := $(addprefix $(DBG_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC))
 default: makedir all
 
 $(TARGET): $(OBJ)
-	$(CC) -o $@ $(OBJ) $(CFLAGS)
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -30,7 +31,7 @@ $(DBG_PATH)/%.o: $(SRC_PATH)/%.c*
 	$(CC) -c $(CFLAGS) $(DBGFLAGS) -o $@ $<
 
 $(TARGET_DBG): $(OBJ_DBG)
-	$(CC) $(CFLAGS) $(DBGFLAGS) $(OBJ_DBG) -o $@
+	$(CC) $(CFLAGS) $(LFLAGS) $(DBGFLAGS) -o $@ $(OBJ_DBG)
 
 makedir:
 	@mkdir -p $(BIN_PATH) $(OBJ_PATH) $(DBG_PATH)
