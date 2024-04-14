@@ -25,10 +25,10 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) $(LFLAGS) -o $@ $<
 
 $(DBG_PATH)/%.o: $(SRC_PATH)/%.c*
-	$(CC) -c $(CFLAGS) $(DBGFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) $(LFLAGS) $(DBGFLAGS) -o $@ $<
 
 $(TARGET_DBG): $(OBJ_DBG)
 	$(CC) $(CFLAGS) $(LFLAGS) $(DBGFLAGS) -o $@ $(OBJ_DBG)
